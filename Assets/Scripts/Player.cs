@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player: MonoBehaviour
 {
 
-    
+    public GamePiece gamePiece;
+
+    private void Awake()
+    {
+        gamePiece = GetComponent<GamePiece>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +22,21 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void MakeAccusation()
+    {
+
+    }
+
+    public void MakeFormalAccusation()
+    {
+
+    }
+
+    public void MoveToCell(RoomCell cell)
+    {
+        gamePiece.MoveToCell(cell);
+
     }
 }
