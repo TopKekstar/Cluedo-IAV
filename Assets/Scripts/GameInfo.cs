@@ -4,6 +4,14 @@ using UnityEngine;
 
 public static class GameInfo
 {
+    public enum PROOF_TYPE
+    {
+        ROOM,
+        PROSECUTED,
+        GUN,
+        NOTHING,
+    }
+
     public enum ROOM_TYPE
     {
         BIBLIOTECA,
@@ -108,5 +116,120 @@ public static class GameInfo
     {
         return gunNames[n];
     }
+
+    public struct Proof
+    {
+        public PROOF_TYPE type;
+        public int idProof;
+
+        public Proof(PROOF_TYPE type, int idProof)
+        {
+            this.type = type;
+            this.idProof = idProof;
+        }
+
+        public Proof(ROOM_TYPE room)
+        {
+            this.type = PROOF_TYPE.ROOM;
+            this.idProof = (int)room;
+        }
+
+        public Proof(PROSECUTED prosecuted)
+        {
+            this.type = PROOF_TYPE.PROSECUTED;
+            this.idProof = (int)prosecuted;
+        }
+
+        public Proof(GUN_TYPE gun)
+        {
+            this.type = PROOF_TYPE.GUN;
+            this.idProof = (int)gun;
+        }
+
+        public static bool operator ==(Proof proof,ROOM_TYPE r)
+        {
+            if(proof.type != PROOF_TYPE.ROOM)
+            {
+                return false;
+            }
+            if (proof.idProof != (int)r)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool operator !=(Proof proof, ROOM_TYPE r)
+        {
+            return !(proof==r);
+        }
+
+        public static bool operator ==(Proof proof, PROSECUTED p)
+        {
+            if (proof.type != PROOF_TYPE.PROSECUTED)
+            {
+                return false;
+            }
+            if (proof.idProof != (int)p)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool operator !=(Proof proof, PROSECUTED p)
+        {
+            return !(proof == p);
+        }
+
+        public static bool operator ==(Proof proof, GUN_TYPE g)
+        {
+            if (proof.type != PROOF_TYPE.ROOM)
+            {
+                return false;
+            }
+            if (proof.idProof != (int)g)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool operator !=(Proof proof, GUN_TYPE g)
+        {
+            return !(proof == g);
+        }
+    }
+    
+    public struct Accusation
+    {
+        public ROOM_TYPE room;
+        public PROSECUTED prosecuted;
+        public GUN_TYPE gun;
+
+        public Accusation(ROOM_TYPE room, PROSECUTED prosecuted, GUN_TYPE gun)
+        {
+            this.room = room;
+            this.prosecuted = prosecuted;
+            this.gun = gun;
+        }
+
+        public bool HasProof(Proof proof)
+        {
+            if(proof == room || proof == prosecuted || proof == gun)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool operator ==(Accusation a1, Accusation a2)
+        {
+            return (a1.room == a2.room && a1.prosecuted == a2.prosecuted && a1.gun == a2.gun);
+        }
+
+        public static bool operator !=(Accusation a1, Accusation a2)
+        {
+            return !(a1 == a2);
+        }
+    }
+    
 
 }
