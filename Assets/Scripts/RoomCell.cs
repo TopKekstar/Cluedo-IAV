@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomCell : MonoBehaviour
 {
-    Room room;
+    public Room room;
 
     public bool HasSomething
     {

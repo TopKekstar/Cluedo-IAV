@@ -7,9 +7,14 @@ public class GameManager : MonoBehaviour
     private GameInfo.Accusation Solution;
     public static GameManager gameManager;
 
+    public GameObject board;
+
     private List<Suspect> suspects;
     private List<Room> rooms;
     private List<Player> players;
+    private List<GameInfo.Proof> proofs;
+
+    private int turnIndex;
 
     private void Awake()
     {
@@ -18,6 +23,32 @@ public class GameManager : MonoBehaviour
             gameManager = this;
         }
     }
+
+    public void StartGame()
+    {
+        turnIndex = 0;
+        CreateSolution();
+        PrepareProofs();
+        DealProofs();
+
+    }
+
+    private void BuildRooms()
+    {
+        rooms = new List<Room>(board.GetComponentsInChildren<Room>());
+        Debug.Log(rooms.Count);
+    }
+
+    public void EndOfTurn()
+    {
+        turnIndex++;
+    }
+
+    public void TurnGame()
+    {
+
+    }
+
 
     private void CreateSolution()
     {
@@ -32,10 +63,27 @@ public class GameManager : MonoBehaviour
             (GameInfo.GUN_TYPE)gun);
     }
 
-    private void CreateProofs()
+   
+
+    private void PrepareProofs()
     {
-        
-        
+        CreateSolution();
+        proofs = GameInfo.CreateAllPendingProofs(Solution.room,Solution.prosecuted,Solution.gun);
+    }
+    
+    private void DealProofs()
+    {
+        GameInfo.Proof proofAux;
+        int playerIndex = 0;
+        while(proofs.Count != 0)
+        {
+            int r = Random.Range(0, proofs.Count);
+            proofAux = proofs[r];
+            players[playerIndex].AddProof(proofAux);
+            playerIndex++;
+            playerIndex %= players.Count;
+            proofs.RemoveAt(r);
+        }
     }
 
     private bool CheckFormalAccusation(GameInfo.Accusation accusation)
@@ -58,8 +106,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-
-        UnityEngine.UI.Dropdown kek;
         
     }
 

@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class GamePiece : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Room room;
 
-    // Update is called once per frame
-    void Update()
+    public bool IsThisYourRoom(Room r)
     {
-        
+        return r == room;
     }
 
     public void MoveToCell(RoomCell roomCell, System.Action<GamePiece> onArrive = null )
@@ -29,5 +23,6 @@ public class GamePiece : MonoBehaviour
         if (onArrive != null)
             onArrive(this);
         roomCell.FillCell(this);
+        room = roomCell.room;
     }
 }

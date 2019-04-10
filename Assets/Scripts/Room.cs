@@ -7,6 +7,12 @@ public class Room : MonoBehaviour
     public GameInfo.ROOM_TYPE type;
     SpriteRenderer spriteRenderer;
     public RoomCell[] cells;
+    
+    public void SetRoomType(GameInfo.ROOM_TYPE r)
+    {
+        type = r;
+    }
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -20,7 +26,11 @@ public class Room : MonoBehaviour
         {
             SetRoomColor();
         }
+        gameObject.name = GameInfo.getRoomName((int)type);
+        
     }
+
+
 
     public RoomCell GetFreeCell()
     {

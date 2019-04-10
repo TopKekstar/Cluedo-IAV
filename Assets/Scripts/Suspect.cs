@@ -11,15 +11,15 @@ public class Suspect : MonoBehaviour
     {
         gamePiece.MoveToCell(cell,onArrive);
     }
-    // Start is called before the first frame update
-    void Start()
+
+    public bool IsThisYourRoom(Room r)
     {
-        
+        return gamePiece.IsThisYourRoom(r);
     }
-    
-    // Update is called once per frame
-    void Update()
+
+    private void Awake()
     {
+        gamePiece = GetComponent<GamePiece>();
         
     }
 }

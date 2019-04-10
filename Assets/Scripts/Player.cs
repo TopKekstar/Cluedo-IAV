@@ -9,8 +9,6 @@ public class Player: MonoBehaviour
 
     private List<GameInfo.Proof> proofs;
 
-    
-
     private void Awake()
     {
         gamePiece = GetComponent<GamePiece>();
@@ -31,6 +29,11 @@ public class Player: MonoBehaviour
     public void MakeAccusation()
     {
 
+    }
+
+    public void AddProof(GameInfo.Proof proof)
+    {
+        proofs.Add(proof);
     }
 
     public void MakeFormalAccusation()
@@ -55,6 +58,16 @@ public class Player: MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void StartTurn()
+    {
+
+    }
+
+    public void EndTurn()
+    {
+        GameManager.gameManager.EndOfTurn();
     }
 
 

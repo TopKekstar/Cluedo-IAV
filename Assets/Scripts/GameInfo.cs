@@ -12,7 +12,7 @@ public static class GameInfo
         NOTHING,
     }
 
-    public enum ROOM_TYPE
+    public enum ROOM_TYPE: int
     {
         BIBLIOTECA,
         COCINA,
@@ -85,6 +85,21 @@ public static class GameInfo
         "Cnel. Rubio",
         "NOBODY"
     };
+
+    static Color[] prosecutedColor = {
+        new Color(1,0,0),
+        new Color(1,1,1),
+        new Color(0,0,1),
+        new Color(1,0,1),
+        new Color(0,1,0),
+        new Color(0,1,1),
+        new Color(0,0,0),
+    };
+
+    public static Color GetProsecutedColor(int n)
+    {
+        return prosecutedColor[n];
+    }
 
     public static string getProsecutedName(int n)
     {
@@ -197,6 +212,37 @@ public static class GameInfo
             return !(proof == g);
         }
     }
+
+    public static List<Proof> CreateAllPendingProofs(ROOM_TYPE room, PROSECUTED prosecuted, GUN_TYPE gun)
+    {
+        List<Proof> proofs = new List<Proof>();
+        int i = 0;
+        while (i < (int)ROOM_TYPE.NONE)
+        {
+            if(room != (ROOM_TYPE)i)
+                proofs.Add(new Proof((ROOM_TYPE)i));
+            i++;
+        }
+
+        i = 0;
+        while (i < (int)PROSECUTED.NONE)
+        {
+            if (prosecuted != (PROSECUTED)i)
+                proofs.Add(new Proof((PROSECUTED)i));
+            i++;
+        }
+
+        i = 0;
+        while (i < (int)GUN_TYPE.NONE)
+        {
+            if (gun != (GUN_TYPE)i)
+                proofs.Add(new Proof((GUN_TYPE)i));
+            i++;
+        }
+
+        return proofs;
+    }
+
     
     public struct Accusation
     {
